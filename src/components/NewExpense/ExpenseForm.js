@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = ({ onSaveExpenseData }) => {
+const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
@@ -50,24 +50,20 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-
     //this is needed because we are choosing to use three separate states above instead of the single combined state userInput
     const expenseData = {
       title: enteredTitle,
       amount: enteredAmount,
-      date: new Date(enteredDate)    //parses date string and turns it into a date object
-    }
+      date: new Date(enteredDate), //parses date string and turns it into a date object
+    };
 
     //this is the function that is passed from NewExpense.js which add the id to the above expenseData
     onSaveExpenseData(expenseData);
     //console.log(expenseData);
-    setEnteredAmount('');  //this works because of the two way binding on the inputs
-    setEnteredTitle('');
-    setEnteredDate('');
-  }
-
-
-
+    setEnteredAmount(""); //this works because of the two way binding on the inputs
+    setEnteredTitle("");
+    setEnteredDate("");
+  };
 
   return (
     <form onSubmit={submitHandler}>
@@ -75,7 +71,11 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
         <div className="new-expense__control">
           <label>Title</label>
           {/* value={enteredTitle} is two way binding. We listen for the input and then feed the state back into the input so that when we change the state we also change the input */}
-          <input type="text" value={enteredTitle} onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -99,6 +99,10 @@ const ExpenseForm = ({ onSaveExpenseData }) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        {/* type=button so it doesn't submit the form */}
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>

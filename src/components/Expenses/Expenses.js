@@ -13,6 +13,11 @@ const Expenses = (props) => {
     setFilteredYear(selectedYear);
   };
 
+  // when user selects a year from the drop down only the expenses with the selected date will appear
+  const filteredExpenses = props.items.filter((expense) => {
+    return expense.date.getFullYear().toString() === filteredYear;
+  })
+
   return (
     <div>
       <Card className="expenses">
@@ -22,7 +27,12 @@ const Expenses = (props) => {
           selected={filteredYear}
         />
 
-        {props.items.map((expense) => (
+        {/* && will fire if truthy */}
+        {filteredExpenses.length === 0 && <p>No expense found.</p>}
+
+        {/* previously was props.items.map but we replaced w/ filteredExpenses so that the array is now filtered for the year drop down to filter */}
+
+        {filteredExpenses.length > 0 && filteredExpenses.map((expense) => (
           <ExpenseItem
             key={expense.id}
             title={expense.title}
