@@ -2,6 +2,7 @@ import ExpenseItem from "./ExpenseItem";
 import "./Expenses.css";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpensesFilter";
+import ExpensesChart from './ExpenseChart'
 import { useState } from "react";
 
 const Expenses = (props) => {
@@ -27,10 +28,16 @@ const Expenses = (props) => {
           selected={filteredYear}
         />
 
+
+
+        <ExpensesChart expenses={filteredExpenses} />
+
         {/* && will fire if truthy */}
         {filteredExpenses.length === 0 && <p>No expense found.</p>}
 
         {/* previously was props.items.map but we replaced w/ filteredExpenses so that the array is now filtered for the year drop down to filter */}
+
+
 
         {filteredExpenses.length > 0 && filteredExpenses.map((expense) => (
           <ExpenseItem

@@ -53,7 +53,7 @@ const ExpenseForm = ({ onSaveExpenseData, onCancel }) => {
     //this is needed because we are choosing to use three separate states above instead of the single combined state userInput
     const expenseData = {
       title: enteredTitle,
-      amount: enteredAmount,
+      amount: +enteredAmount,
       date: new Date(enteredDate), //parses date string and turns it into a date object
     };
 
